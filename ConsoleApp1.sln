@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project1", "ConsoleApp1\project1.csproj", "{731F3C59-ED3D-41B5-BDA8-CADAAE0E6E4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project2", "ConsoleApp2\project2.csproj", "{9D2BE02C-212A-4EE0-A788-BE1E0672FF33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project3", "ConsoleApp3\project3.csproj", "{055042C2-2C57-4DBC-8ED6-FB5E45FC8ADA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{731F3C59-ED3D-41B5-BDA8-CADAAE0E6E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731F3C59-ED3D-41B5-BDA8-CADAAE0E6E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731F3C59-ED3D-41B5-BDA8-CADAAE0E6E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731F3C59-ED3D-41B5-BDA8-CADAAE0E6E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2BE02C-212A-4EE0-A788-BE1E0672FF33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2BE02C-212A-4EE0-A788-BE1E0672FF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2BE02C-212A-4EE0-A788-BE1E0672FF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2BE02C-212A-4EE0-A788-BE1E0672FF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055042C2-2C57-4DBC-8ED6-FB5E45FC8ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055042C2-2C57-4DBC-8ED6-FB5E45FC8ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055042C2-2C57-4DBC-8ED6-FB5E45FC8ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055042C2-2C57-4DBC-8ED6-FB5E45FC8ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA2E3595-D355-45BE-8602-E8A96C03D30E}
+	EndGlobalSection
+EndGlobal
