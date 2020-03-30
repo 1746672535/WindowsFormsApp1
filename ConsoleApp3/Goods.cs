@@ -1,5 +1,8 @@
-﻿namespace ConsoleApp3
+﻿using System;
+
+namespace ConsoleApp3
 {
+    [Serializable]
     public class Goods
     {
         public string Name { get; set; }
@@ -13,6 +16,7 @@
         {
             return Name+"  :"+Price;
         }
+        public Goods() { }
     }
 }
 

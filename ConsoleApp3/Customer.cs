@@ -1,5 +1,8 @@
-﻿namespace ConsoleApp3
+﻿using System;
+
+namespace ConsoleApp3
 {
+    [Serializable]
     public class Customer
     {
         public string Name { set; get; }
@@ -10,6 +13,7 @@
             Name = name;PhoneNum = phoneNum;Address = address;
 
         }
+        public Customer() { }
 
         public override string ToString()
         {

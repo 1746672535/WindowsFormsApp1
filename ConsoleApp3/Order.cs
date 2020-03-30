@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 namespace ConsoleApp3
 {
+    [Serializable]
     public class Order:IComparable
     {
-        public List<OrderItem> OrderItems;
+        public List<OrderItem> OrderItems { get; set; }
         public Customer User{get;set;}
         public int Id { get; set; }
         public double Total { get; set; }
@@ -22,12 +23,16 @@ namespace ConsoleApp3
 
         }
 
+        public Order()
+        { }
+
         public int CompareTo(object obj)
         {
             Order order2 = obj as Order;
             if (order2 == null)
                 throw new System.ArgumentException();
-            return this.Id.CompareTo(order2.Id);
+            return this.Id.CompareTo(order2.Id);
+
         }
 
         public override bool Equals(object obj)

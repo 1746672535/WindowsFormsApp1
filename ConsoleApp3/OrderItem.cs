@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ConsoleApp3
 {
+    [Serializable]
     public class OrderItem
     {
-        public Goods goods;
+        public Goods goods { get; set; }
         public int Amount { get; set; }
         public double TotalPrice { get; set; }
         public OrderItem(Goods good,int amount)
@@ -12,6 +14,7 @@ namespace ConsoleApp3
             goods = good;Amount = amount;
             TotalPrice = goods.Price * Amount;
         }
+        public OrderItem() { }
 
         public override bool Equals(object obj)
         {

@@ -18,14 +18,33 @@ namespace ConsoleApp3
             Console.WriteLine("输入3：删除订单");
             Console.WriteLine("输入4：查询订单订单");
             Console.WriteLine("输入5：退出系统");
+            Console.WriteLine("输入6：将所有的订单序列化");
+            Console.WriteLine("输入7：从XML文件中载入订单");
             bool flag = true;
-            Dictionary<string, Customer> Users = new Dictionary<string, Customer>();            int count = 0;
+            Dictionary<string, Customer> Users = new Dictionary<string, Customer>();
+            int count = 0;
+
             OrderService orderService = new OrderService();
-            orderService.orderList = new List<Order>(); 
+            orderService.OrderList = new List<Order>();
             do
             {
                 Console.WriteLine("请选择您要使用的服务：");
-                int i = int.Parse(Console.ReadLine());
+                bool flags = false;
+                int i=0;
+                do
+                {
+                    try
+                    {
+                        
+                        i = int.Parse(Console.ReadLine());
+                        if(i>0&&i<8)
+                        flags = true;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("请给出正确的输入");
+                    }
+                    } while (!flags);
                 switch (i)
                 {
 
@@ -35,7 +54,7 @@ namespace ConsoleApp3
                         List<OrderItem> orderItems=new List<OrderItem>();
                         Console.WriteLine("请输入用户名");
                         string user = Console.ReadLine();
-                        if (orderService.orderList.Count()==0 || Users[user] == null)
+                        if (orderService.OrderList.Count()==0 || Users[user] == null)
                         {
                             Console.WriteLine("请输入电话号码");
                             string phoneNum = Console.ReadLine();
@@ -65,7 +84,7 @@ namespace ConsoleApp3
 
                         } while (input != "stop");
                         Order order = new Order(orderItems, customer, count);
-                        orderService.orderList.Add(order);
+                        orderService.OrderList.Add(order);
                         Console.WriteLine("您已经成功创建订单，订单号为："+count);
                         break;
                     case 2:
@@ -79,7 +98,7 @@ namespace ConsoleApp3
                         List<OrderItem> orderItems1 = new List<OrderItem>();
                         Console.WriteLine("请输入用户名");
                         string user1 = Console.ReadLine();
-                        if (orderService.orderList.Count() == 0 || Users[user1] == null)
+                        if (orderService.OrderList.Count() == 0 || Users[user1] == null)
                         {
                             Console.WriteLine("请输入电话号码");
                             string phoneNum = Console.ReadLine();
@@ -170,6 +189,14 @@ namespace ConsoleApp3
 
                     case 5:
                         flag = false;break;
+                    case 6:
+                        Console.WriteLine("输入您要创建的文件名（以.xml结尾）");
+                        string filename = Console.ReadLine();
+                        orderService.Export(filename);break;
+                    case 7:
+                        Console.WriteLine("输入您要查找的文件名（以.xml结尾）");
+                        string filename1 = Console.ReadLine();
+                        orderService.Import(filename1);break;
                     default:
                         break;
                 }
