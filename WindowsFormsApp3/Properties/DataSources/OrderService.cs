@@ -52,7 +52,7 @@ namespace ConsoleApp3
                     throw new Exception();
                 else
                 {
-                    o.CustomerName = o1.CustomerName;o.OrderItems = o1.OrderItems;o.Total = o1.Total;
+                    o.User = o1.User;o.OrderItems = o1.OrderItems;o.Total = o1.Total;
                 }
 
 
@@ -70,14 +70,14 @@ namespace ConsoleApp3
             {
                 case 1:
                     var query1 = from s in OrderList
-                                   .Where(x => x.OrderItems.Exists(y => y.Name.Contains(information)))
+                                   .Where(x => x.OrderItems.Exists(y => y.goods.Name.Contains(information)))
                                    .OrderByDescending(s => s.Total)
                                  select s;
 
                     return query1.ToList();
                 case 2:
                     var query2 = from s in OrderList
-                                .Where(x => x.CustomerName == information)
+                                .Where(x => x.User.Name == information)
                                 .OrderByDescending(s => s.Total)
                                  select s;
 

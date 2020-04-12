@@ -5,15 +5,16 @@ using System.Collections.Generic;
 namespace ConsoleApp3
 {
     [Serializable]
-    public class Order:IComparable
+    public class Order : IComparable
     {
         public List<OrderItem> OrderItems { get; set; }
-        public Customer User{get;set;}
+        public Customer User { get; set; }
+        public string CustomerName { get; set; }
         public int Id { get; set; }
         public double Total { get; set; }
-        public Order(List<OrderItem> orderItems ,Customer user,int id)
+        public Order(List<OrderItem> orderItems, Customer user, int id,string customer)
         {
-            OrderItems = orderItems;User = user;Id = id;
+            OrderItems = orderItems; User = user; Id = id;
             double sum = 0;
             foreach (OrderItem Item in OrderItems)
             {
@@ -24,7 +25,10 @@ namespace ConsoleApp3
         }
 
         public Order()
-        { }
+        {
+            this.OrderItems = new List<OrderItem>();
+            User = new Customer();
+        }
 
         public int CompareTo(object obj)
         {
@@ -56,11 +60,44 @@ namespace ConsoleApp3
         public override string ToString()
         {
             StringBuilder a = new StringBuilder();
-            a.Append(User.ToString()+"\n");
+            a.Append(User.ToString() + "\n");
             foreach (OrderItem item in OrderItems)
-                a.Append(item.ToString()+"\n");
+                a.Append(item.ToString() + "\n");
             return a.ToString();
         }
+
+        public void addOrderItem(OrderItem orderItem)
+        {
+            if (orderItem.Amount != -1)
+                this.OrderItems.Add(orderItem);
+        }
+
+        public void deleteOrderItem(OrderItem orderItem)
+        {
+            this.OrderItems.Remove(orderItem);
+        }
+
+        public void modifyOrderItem(OrderItem orderItem1, OrderItem orderItem2)
+        {
+            if (orderItem2.Amount != -1)
+            {
+                orderItem1.Amount = orderItem2.Amount;
+                orderItem1.TotalPrice = orderItem2.TotalPrice;
+                orderItem1.Name = orderItem2.Name;
+            }
+        }
+
+        public double getTotal()
+        {
+            double sum = 0;
+            foreach (OrderItem Item in OrderItems)
+            {
+                sum += Item.TotalPrice;
+            }
+            return sum;
+        }
+       
+
     }
 }
 
