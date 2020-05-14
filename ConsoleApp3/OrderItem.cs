@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConsoleApp3
 {
     [Serializable]
     public class OrderItem
     {
+        [NotMapped]
         public Goods goods { get; set; }
-        public string Name { get; set; }
+        public string NameId { get; set; }
         public int Amount { get; set; }
         public double TotalPrice { get; set; }
+
+        public int OrderId{ get; set; }
+        public Order Order { get; set; }
         public OrderItem(Goods good,int amount)
         {
             goods = good;Amount = amount;
