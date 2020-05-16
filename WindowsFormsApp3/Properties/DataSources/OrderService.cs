@@ -25,11 +25,6 @@ namespace ConsoleApp3
                     throw new Exception();
                 else
                     OrderList.Remove(o);
-            using (var context = new OrderContext()) {
-                context.Orders.Remove(o);
-                context.SaveChanges();
-
-            }
            
          
         }
@@ -40,14 +35,10 @@ namespace ConsoleApp3
            
               
                    
-            if(o.OrderId!=-1)  
+            if(o.Id!=-1)  
             OrderList.Add(o);
 
-            using (var db = new OrderContext()) {
-                db.Orders.Add(o);
-                db.SaveChanges();
-            };
-            
+         
 
         }
 
@@ -61,13 +52,7 @@ namespace ConsoleApp3
                     throw new Exception();
                 else
                 {
-                   
-                    using (var db = new OrderContext())
-                    {
-                        o.CustomerName = o1.CustomerName; o.OrderItems = o1.OrderItems; o.Total = o1.Total;
-                        db.SaveChanges();
-                    };
-
+                    o.User = o1.User;o.OrderItems = o1.OrderItems;o.Total = o1.Total;
                 }
 
 
@@ -85,14 +70,14 @@ namespace ConsoleApp3
             {
                 case 1:
                     var query1 = from s in OrderList
-                                   .Where(x => x.OrderItems.Exists(y => y.NameId.Contains(information)))
+                                   .Where(x => x.OrderItems.Exists(y => y.goods.Name.Contains(information)))
                                    .OrderByDescending(s => s.Total)
                                  select s;
 
                     return query1.ToList();
                 case 2:
                     var query2 = from s in OrderList
-                                .Where(x => x.CustomerName == information)
+                                .Where(x => x.User.Name == information)
                                 .OrderByDescending(s => s.Total)
                                  select s;
 
@@ -110,7 +95,7 @@ namespace ConsoleApp3
         public Order InquiryOrder(int id)
         {
             var query = from s in OrderList
-                        where s.OrderId == id
+                        where s.Id == id
                         select s;
 
             return query.FirstOrDefault(); 

@@ -46,7 +46,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem = new OrderItem(goods, 10);
             List<OrderItem> orderItems = new List<OrderItem>();
             orderItems.Add(orderItem);
-            Order order1 = new Order(orderItems,customer,1);
+            Order order1 = new Order(orderItems,customer,1,"");
             orderService.AddOrder(order1);
             Assert.AreEqual(order1, orderService.OrderList.First());
 
@@ -63,7 +63,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem1 = new OrderItem(goods1, 8);
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(orderItem1);
-            Order order1 = new Order(orderItems1, customer1, 1);
+            Order order1 = new Order(orderItems1, customer1, 1,"");
             
           
             Customer customer2 = new Customer("mary", "8888888", "New York");
@@ -71,7 +71,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem2 = new OrderItem(goods2, 10);
             List<OrderItem> orderItems2 = new List<OrderItem>();
             orderItems2.Add(orderItem2);
-            Order order2 = new Order(orderItems2, customer2, 2);
+            Order order2 = new Order(orderItems2, customer2, 2,"");
             orderService.AddOrder(order1);
             orderService.ModifyOrder(order1, order2);
             Assert.AreEqual(order1.Id, order2.Id);
@@ -93,7 +93,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem1 = new OrderItem(goods1, 8);
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(orderItem1);
-            Order order1 = new Order(orderItems1, customer1, 1);
+            Order order1 = new Order(orderItems1, customer1, 1,"");
 
 
             Customer customer2 = new Customer("mary", "8888888", "New York");
@@ -101,7 +101,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem2 = new OrderItem(goods2, 10);
             List<OrderItem> orderItems2 = new List<OrderItem>();
             orderItems2.Add(orderItem2);
-            Order order2 = new Order(orderItems2, customer2, 2);
+            Order order2 = new Order(orderItems2, customer2, 2,"");
             
             orderService.AddOrder(order1);
             orderService.AddOrder(order2);
@@ -123,7 +123,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem1 = new OrderItem(goods1, 8);
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(orderItem1);
-            Order order1 = new Order(orderItems1, customer1, 1);
+            Order order1 = new Order(orderItems1, customer1, 1,"");
 
 
             Customer customer2 = new Customer("mary", "8888888", "New York");
@@ -131,7 +131,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem2 = new OrderItem(goods2, 10);
             List<OrderItem> orderItems2 = new List<OrderItem>();
             orderItems2.Add(orderItem2);
-            Order order2 = new Order(orderItems2, customer2, 2);
+            Order order2 = new Order(orderItems2, customer2, 2,"");
 
             orderService.AddOrder(order1);
             orderService.AddOrder(order2);
@@ -156,7 +156,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem1 = new OrderItem(goods1, 8);
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(orderItem1);
-            Order order1 = new Order(orderItems1, customer1, 1);
+            Order order1 = new Order(orderItems1, customer1, 1,"");
 
 
             Customer customer2 = new Customer("mary", "8888888", "New York");
@@ -164,7 +164,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem2 = new OrderItem(goods2, 10);
             List<OrderItem> orderItems2 = new List<OrderItem>();
             orderItems2.Add(orderItem2);
-            Order order2 = new Order(orderItems2, customer2, 2);
+            Order order2 = new Order(orderItems2, customer2, 2,"");
 
             orderService.Export("2.xml");
 
@@ -192,7 +192,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem1 = new OrderItem(goods1, 8);
             List<OrderItem> orderItems1 = new List<OrderItem>();
             orderItems1.Add(orderItem1);
-            Order order1 = new Order(orderItems1, customer1, 1);
+            Order order1 = new Order(orderItems1, customer1, 1,"");
 
 
             Customer customer2 = new Customer("mary", "8888888", "New York");
@@ -200,7 +200,7 @@ namespace ConsoleApp3.Tests
             OrderItem orderItem2 = new OrderItem(goods2, 10);
             List<OrderItem> orderItems2 = new List<OrderItem>();
             orderItems2.Add(orderItem2);
-            Order order2 = new Order(orderItems2, customer2, 2);
+            Order order2 = new Order(orderItems2, customer2, 2,"");
 
             orderService.Import("2.xml");
 
