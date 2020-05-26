@@ -14,24 +14,26 @@ namespace WindowsFormsApp3
     public partial class Form2 : Form
     {
         Order thisorder = null;
-        int sum;
+        public bool tag = true;
+
         public Form2()
         {
             InitializeComponent();
         }
 
-        public Form2(ref Order order, int sum)
+        public Form2(ref Order order)
         {
             InitializeComponent();
             
             thisorder = order;
-            this.sum = sum;
+            orderItemBindingSource1.DataSource = thisorder.OrderItems;
+
         }
 
         private void btnAddOrderItem(object sender, EventArgs e)
         {
             OrderItem orderItem = new OrderItem();
-            orderItemBindingSource.DataSource = thisorder.OrderItems;
+            
             new Form3(ref orderItem).ShowDialog();
 
             thisorder.addOrderItem(orderItem);
@@ -68,14 +70,14 @@ namespace WindowsFormsApp3
             thisorder.CustomerName = textBox1.Text;
 
             thisorder.Total = thisorder.getTotal();
-            thisorder.Id = sum;
+
 
             Close();
         }
 
         private void btnExit(object sender, EventArgs e)
         {
-            thisorder.Id = -1;
+            tag = false;
             Close();
         }
 

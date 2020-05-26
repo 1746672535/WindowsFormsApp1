@@ -74,7 +74,7 @@ namespace ConsoleApp3.Tests
             Order order2 = new Order(orderItems2, customer2, 2,"");
             orderService.AddOrder(order1);
             orderService.ModifyOrder(order1, order2);
-            Assert.AreEqual(order1.Id, order2.Id);
+            Assert.AreEqual(order1.OrderId, order2.OrderId);
             Assert.AreEqual(order1.User, order2.User);
             Assert.AreEqual(order1.OrderItems, order2.OrderItems);
 

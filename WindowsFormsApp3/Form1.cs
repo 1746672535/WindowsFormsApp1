@@ -14,16 +14,16 @@ namespace WindowsFormsApp3
     public partial class Form1 : Form
     {
         
-        OrderService orderService = new OrderService();
+        
         public string KeyWord { get; set; }
      
         List<Order> orders = new List<Order>();
         public Form1()
         {
             InitializeComponent();
-          
-           
-            
+
+
+            orderBindingSource.DataSource = OrderService.GetAllOrders();
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
@@ -39,11 +39,20 @@ namespace WindowsFormsApp3
         private void AddOrder(object sender, EventArgs e)
         {
             Order order = new Order();
-            orderBindingSource.DataSource = orderService.OrderList;
-            new Form2(ref order, orderService.sum).ShowDialog();
-           
-            orderService.AddOrder(order);
-            order.Id = orderService.sum;
+            Form2 form2 = new Form2(ref order);
+            if (form2.tag)
+            {
+                form2.ShowDialog();
+                
+                    OrderService.AddOrder(order);
+                    QueryAll();
+                
+            }
+        }
+
+        private void QueryAll()
+        {
+            orderBindingSource.DataSource = OrderService.GetAllOrders();
             orderBindingSource.ResetBindings(false);
         }
 
@@ -54,13 +63,13 @@ namespace WindowsFormsApp3
                 switch (comboBox1.Text)
                 {
                     case "订单号":
-                        orderBindingSource.DataSource=orderService.InquiryOrder(int.Parse(textBox1.Text));
+                        orderBindingSource.DataSource = OrderService.QueryOrdersByOrderId(textBox1.Text);
                         break;
                     case "顾客":
-                        orderBindingSource.DataSource = orderService.InquiryOrder(2, textBox1.Text);
+                        orderBindingSource.DataSource = OrderService.QueryOrdersByCustomerName(textBox1.Text);
                         break;
                     case "商品名":
-                        orderBindingSource.DataSource = orderService.InquiryOrder(1, textBox1.Text);
+                        orderBindingSource.DataSource = OrderService.QueryOrdersByGoodsName(textBox1.Text);
                         break;
                 }
             }
@@ -73,34 +82,32 @@ namespace WindowsFormsApp3
 
         private void btnDeleteOrder(object sender, EventArgs e)
         {
-            try
-            {
-                Order current = orderBindingSource.Current as Order;
-                orderService.DeleteOrder(current);
-                orderBindingSource.ResetBindings(false);
-            }
-            catch (Exception)
-            {
-                label1.Text = "该订单不存在";
-            }
+            Order order = orderBindingSource.Current as Order;
+          
+            OrderService.RemoveOrder(order);
+            QueryAll();
         }
 
         private void btnDisplayOrder(object sender, EventArgs e)
         {
-            orderBindingSource.DataSource = orderService.OrderList;
-            orderBindingSource.ResetBindings(false);
+            QueryAll();
         }
 
         private void btnModifyOrder(object sender, EventArgs e)
         {
 
             Order order = new Order();
-            orderBindingSource.DataSource = orderService.OrderList;
-            new Form2(ref order, orderService.sum).ShowDialog();
-            Order current = orderBindingSource.Current as Order;
-            orderService.ModifyOrder(current,order);
-            order.Id = orderService.sum;
-            orderBindingSource.ResetBindings(false);
+            Form2 form2 = new Form2(ref order);
+            if (form2.tag)
+            {
+                form2.ShowDialog();
+                
+                    Order current = orderBindingSource.Current as Order;
+                    OrderService.ModifyOrder(current, order);
+                    orderBindingSource.ResetBindings(false);
+                
+            }
+  
         }
     }
 }

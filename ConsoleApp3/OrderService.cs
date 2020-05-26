@@ -17,107 +17,96 @@ namespace ConsoleApp3
         {
             OrderList = new List<Order>();
         }
-        
-        public void DeleteOrder(Order o)
-        {
-          
-                if (o == null||!OrderList.Contains(o))
-                    throw new Exception();
-                else
-                    OrderList.Remove(o);
-            using (var context = new OrderContext()) {
-                context.Orders.Remove(o);
-                context.SaveChanges();
 
+
+        public static List<Order> GetAllOrders()
+        {
+            using (var db = new OrderContext())
+            {
+                return AllOrders(db).ToList();
             }
-           
-         
         }
 
-        public void AddOrder(Order o)
-        {
-            sum++;
-           
-              
-                   
-            if(o.OrderId!=-1)  
-            OrderList.Add(o);
 
-            using (var db = new OrderContext()) {
-                db.Orders.Add(o);
-                db.SaveChanges();
-            };
-            
 
-        }
-
-      
-
-        public void ModifyOrder(Order o, Order o1)
+        public static void RemoveOrder(Order order1)
         {
             try
             {
-                if (o1 == null)
-                    throw new Exception();
-                else
+                using (var db = new OrderContext())
                 {
-                   
-                    using (var db = new OrderContext())
-                    {
-                        o.CustomerName = o1.CustomerName; o.OrderItems = o1.OrderItems; o.Total = o1.Total;
-                        db.SaveChanges();
-                    };
-
+                    var order = db.Orders.Include("OrderItems").Where(o => o.Id == order1.Id).FirstOrDefault();
+                    db.Orders.Remove(order);
+                    db.SaveChanges();
                 }
-
-
             }
-            catch
+            catch (Exception e)
             {
-                Console.WriteLine("订单不能为空");
+                
+                throw new ApplicationException($"删除订单错误!");
             }
         }
 
-        public List<Order> InquiryOrder(int partern, string information)
+        public static Order AddOrder(Order order)
         {
-            List<Order> order = new List<Order>();
-            switch (partern)
+            try
             {
-                case 1:
-                    var query1 = from s in OrderList
-                                   .Where(x => x.OrderItems.Exists(y => y.NameId.Contains(information)))
-                                   .OrderByDescending(s => s.Total)
-                                 select s;
-
-                    return query1.ToList();
-                case 2:
-                    var query2 = from s in OrderList
-                                .Where(x => x.CustomerName == information)
-                                .OrderByDescending(s => s.Total)
-                                 select s;
-
-                    return query2.ToList();
-                default: return null;
-
+                using (var db = new OrderContext())
+                {
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                }
+                return order;
             }
-
-
-
-
+            catch (Exception e)
+            {
+              
+                throw new ApplicationException($"添加错误: {e.Message}");
+            }
         }
 
 
-        public Order InquiryOrder(int id)
+
+        public static void ModifyOrder(Order o, Order o1)
         {
-            var query = from s in OrderList
-                        where s.OrderId == id
-                        select s;
-
-            return query.FirstOrDefault(); 
-
-
-
+            RemoveOrder(o);
+            AddOrder(o1);
         }
+
+        public static List<Order> QueryOrdersByGoodsName(string goodsName)
+        {
+            using (var db = new OrderContext())
+            {
+                var query = AllOrders(db)
+                  .Where(o => o.OrderItems.Count(i => i.Name == goodsName) > 0);
+                return query.ToList();
+            }
+        }
+
+        public static List<Order> QueryOrdersByCustomerName(string customerName)
+        {
+            using (var db = new OrderContext())
+            {
+                var query = AllOrders(db)
+                  .Where(o => o.CustomerName == customerName);
+                return query.ToList();
+            }
+        }
+
+        public static List<Order> QueryOrdersByOrderId(string Id)
+        {
+            using (var db = new OrderContext())
+            {
+                var query = AllOrders(db)
+                  .Where(o => o.Id == Id);
+                return query.ToList();
+            }
+        }
+
+
+
+
+
 
 
         public void Export(string filename)
@@ -156,5 +145,11 @@ namespace ConsoleApp3
             }
                     
          }
+
+
+        private static IQueryable<Order> AllOrders(OrderContext db)
+        {
+            return db.Orders.Include("OrderItems");
+        }
     }
-   }
+ }

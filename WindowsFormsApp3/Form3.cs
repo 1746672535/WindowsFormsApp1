@@ -33,11 +33,11 @@ namespace WindowsFormsApp3
 
         private void btnRight(object sender, EventArgs e)
         {
-            Goods goods = new Goods(textBox1.Text, double.Parse(textBox2.Text));
-            thisOrderItem.goods = goods;
+
+            thisOrderItem.Price = int.Parse(textBox2.Text);
             thisOrderItem.Name = textBox1.Text;
             thisOrderItem.Amount = int.Parse(textBox3.Text);
-            thisOrderItem.TotalPrice = goods.Price * thisOrderItem.Amount;
+            thisOrderItem.TotalPrice = thisOrderItem.Price * thisOrderItem.Amount;
             Close();
         }
 

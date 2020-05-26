@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleApp3
 {
@@ -13,7 +14,15 @@ namespace ConsoleApp3
             Name = name;PhoneNum = phoneNum;Address = address;
 
         }
-        public Customer() { }
+        [Key]
+        public string ID { get; set; }
+    
+
+        public Customer()
+        {
+            ID = Guid.NewGuid().ToString();
+        }
+    
 
         public override string ToString()
         {
